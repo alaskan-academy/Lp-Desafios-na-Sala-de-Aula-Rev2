@@ -459,11 +459,6 @@
     border-radius:999px; color:var(--todo-text); font-size:13px; font-weight:600; background:var(--todo-bg);
   }
   .todo-list{display:flex; flex-wrap:wrap; gap:10px; justify-content:center;}
-
-  /* reveal animation */
-  .reveal{opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease;}
-  .reveal.in{opacity:1; transform:none;}
-  @media (prefers-reduced-motion: reduce){ .reveal{opacity:1; transform:none; transition:none;} }
 </style>
 
 <!-- Utmify Pixel -->
@@ -1054,15 +1049,6 @@
       if(!ticking){ window.requestAnimationFrame(update); ticking = true; }
     }, {passive:true});
     update();
-
-    if(window.matchMedia && !window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window){
-      var io = new IntersectionObserver(function(entries){
-        entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-      }, {threshold:0.12, rootMargin:'0px 0px -6% 0px'});
-      document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
-    } else {
-      document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
-    }
   })();
 
   (function(){
